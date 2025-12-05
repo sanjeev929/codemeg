@@ -51,8 +51,7 @@
     <script>
 /* ============================================
    DAILY LIMIT USING LOCALSTORAGE (FRONTEND)
-   ============================================
-*/
+   ============================================ */
 const DAILY_LIMIT = 6;
 
 function getToday() {
@@ -81,13 +80,26 @@ function getRemainingRequests() {
 }
 
 /* ============================================
+   SHOW REMAINING REQUESTS LIVE
+   ============================================ */
+const header = document.querySelector("header");
+const remainingBox = document.createElement("p");
+remainingBox.id = "remaining-count";
+remainingBox.style.marginTop = "10px";
+remainingBox.style.fontWeight = "600";
+updateRemainingDisplay();
+header.appendChild(remainingBox);
+
+function updateRemainingDisplay() {
+    remainingBox.textContent = `Requests Left Today: ${getRemainingRequests()}`;
+}
+
+/* ============================================
    DROPDOWN LOGIC
-   ============================================
-*/
+   ============================================ */
 const dropdown = document.getElementById("dropdown");
 const dropdownSelected = document.getElementById("dropdownSelected");
 const dropdownOptions = document.getElementById("dropdownOptions");
-
 let selectedTool = "bio";
 
 dropdownSelected.addEventListener("click", () => {
@@ -110,8 +122,7 @@ document.addEventListener("click", (e) => {
 
 /* ============================================
    MAIN UI ELEMENTS
-   ============================================
-*/
+   ============================================ */
 const generateBtn = document.getElementById('generate-btn');
 const saveBtn = document.getElementById('save-btn');
 const copyBtn = document.getElementById('copy-btn');
@@ -126,19 +137,16 @@ updateSavedList();
 
 /* ============================================
    GENERATE BUTTON — API + LIMIT CHECK
-   ============================================
-*/
+   ============================================ */
 generateBtn.addEventListener('click', async () => {
     const prompt = promptInput.value.trim();
     if (!prompt) return alert("Please enter a prompt");
 
-    // CHECK DAILY LIMIT
     if (getRequestCount() >= DAILY_LIMIT) {
         alert("Daily limit reached! Come back tomorrow 😊");
         return;
     }
 
-    // start loader
     generateBtn.disabled = true;
     const originalText = generateBtn.textContent;
     generateBtn.innerHTML = `<span class="loader"></span> Generating...`;
@@ -151,32 +159,18 @@ generateBtn.addEventListener('click', async () => {
             body: JSON.stringify({ prompt: prompt, history: [] })
         });
 
-        if (!response.ok) {
-            let errText = "API error";
-            try {
-                const errJson = await response.json();
-                errText = errJson.detail || errText;
-            } catch (e) {}
-            alert(errText);
-            return;
-        }
-
         const data = await response.json();
+        if (!response.ok) return alert(data.detail || "API error");
 
-        // CLEAN RESULT
         let text = data.result || "";
-        text = text.replace(/\*\*/g, "")
-                   .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1");
+        text = text.replace(/\*\*/g, "").replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1");
 
         incrementRequestCount();
+        updateRemainingDisplay();
 
-        const remaining = getRemainingRequests();
-
-        resultDiv.textContent =
-            text + `\n\nRequests left today: ${remaining}`;
+        resultDiv.textContent = text;
 
     } catch (err) {
-        console.error(err);
         alert("API error");
     } finally {
         generateBtn.disabled = false;
@@ -185,12 +179,12 @@ generateBtn.addEventListener('click', async () => {
 });
 
 /* ============================================
-   SAVE RESULT
-   ============================================
-*/
+   SAVE RESULT WITH COPY + DELETE BUTTONS
+   ============================================ */
 saveBtn.addEventListener('click', () => {
     const text = resultDiv.textContent.trim();
     if (!text) return;
+
     savedItems.push(text);
     localStorage.setItem('savedItems', JSON.stringify(savedItems));
     updateSavedList();
@@ -209,29 +203,17 @@ document.getElementById("save-btn").addEventListener("click", function () {
 
 /* ============================================
    COPY RESULT
-   ============================================
-*/
+   ============================================ */
 copyBtn.addEventListener('click', () => {
     const text = resultDiv.textContent.trim();
     if (!text) return;
 
-    navigator.clipboard.writeText(text).then(() => {
-        copyBtn.classList.add('copied');
-        const previous = copyBtn.textContent;
-        copyBtn.textContent = '✔';
-        setTimeout(() => {
-            copyBtn.classList.remove('copied');
-            copyBtn.textContent = previous || 'Copy';
-        }, 3000);
-    }).catch(err => {
-        alert("Failed to copy");
-    });
+    navigator.clipboard.writeText(text);
 });
 
 /* ============================================
    CLEAR SAVED LIST
-   ============================================
-*/
+   ============================================ */
 clearSavedBtn.addEventListener('click', () => {
     savedItems = [];
     localStorage.removeItem('savedItems');
@@ -239,18 +221,38 @@ clearSavedBtn.addEventListener('click', () => {
 });
 
 /* ============================================
-   UPDATE SAVED LIST UI
-   ============================================
-*/
+   UPDATE SAVED LIST UI (WITH COPY + DELETE)
+   ============================================ */
 function updateSavedList() {
     savedList.innerHTML = "";
-    savedItems.forEach(item => {
+
+    savedItems.forEach((item, index) => {
         const li = document.createElement("li");
-        li.textContent = item;
+        li.className = "saved-item";
+
+        const textDiv = document.createElement("span");
+        textDiv.textContent = item;
+
+        const copyBtn = document.createElement("button");
+        copyBtn.textContent = "Copy";
+        copyBtn.className = "small-btn";
+        copyBtn.onclick = () => navigator.clipboard.writeText(item);
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "X";
+        deleteBtn.className = "small-btn delete";
+        deleteBtn.onclick = () => {
+            savedItems.splice(index, 1);
+            localStorage.setItem("savedItems", JSON.stringify(savedItems));
+            updateSavedList();
+        };
+
+        li.appendChild(textDiv);
+        li.appendChild(copyBtn);
+        li.appendChild(deleteBtn);
         savedList.appendChild(li);
     });
 }
-
 </script>
 
 </body>
