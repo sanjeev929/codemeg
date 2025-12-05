@@ -49,16 +49,47 @@
     </main>
 
     <script>
-        // ELEMENTS
+/* ============================================
+   DAILY LIMIT USING LOCALSTORAGE (FRONTEND)
+   ============================================
+*/
+const DAILY_LIMIT = 6;
+
+function getToday() {
+    return new Date().toISOString().split("T")[0];
+}
+
+function getRequestCount() {
+    const data = JSON.parse(localStorage.getItem("limit_data"));
+
+    if (!data || data.date !== getToday()) {
+        localStorage.setItem("limit_data", JSON.stringify({ date: getToday(), count: 0 }));
+        return 0;
+    }
+    return data.count;
+}
+
+function incrementRequestCount() {
+    let data = JSON.parse(localStorage.getItem("limit_data")) || {};
+    data.date = getToday();
+    data.count = (data.count || 0) + 1;
+    localStorage.setItem("limit_data", JSON.stringify(data));
+}
+
+function getRemainingRequests() {
+    return DAILY_LIMIT - getRequestCount();
+}
+
+/* ============================================
+   DROPDOWN LOGIC
+   ============================================
+*/
 const dropdown = document.getElementById("dropdown");
 const dropdownSelected = document.getElementById("dropdownSelected");
 const dropdownOptions = document.getElementById("dropdownOptions");
 
 let selectedTool = "bio";
 
-// -----------------
-// DROPDOWN LOGIC
-// -----------------
 dropdownSelected.addEventListener("click", () => {
     dropdownOptions.classList.toggle("show");
 });
@@ -77,9 +108,10 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// ----------------------------------------------
-// MAIN UI ELEMENTS
-// ----------------------------------------------
+/* ============================================
+   MAIN UI ELEMENTS
+   ============================================
+*/
 const generateBtn = document.getElementById('generate-btn');
 const saveBtn = document.getElementById('save-btn');
 const copyBtn = document.getElementById('copy-btn');
@@ -92,19 +124,25 @@ const promptInput = document.getElementById('prompt');
 let savedItems = JSON.parse(localStorage.getItem('savedItems') || '[]');
 updateSavedList();
 
-// ---------------------
-// Generate API request with loader
-// ---------------------
+/* ============================================
+   GENERATE BUTTON — API + LIMIT CHECK
+   ============================================
+*/
 generateBtn.addEventListener('click', async () => {
     const prompt = promptInput.value.trim();
     if (!prompt) return alert("Please enter a prompt");
+
+    // CHECK DAILY LIMIT
+    if (getRequestCount() >= DAILY_LIMIT) {
+        alert("Daily limit reached! Come back tomorrow 😊");
+        return;
+    }
 
     // start loader
     generateBtn.disabled = true;
     const originalText = generateBtn.textContent;
     generateBtn.innerHTML = `<span class="loader"></span> Generating...`;
-   //http://127.0.0.1:8000/
-   //https://bio-gen.onrender.com
+
     try {
         const response = await fetch(`https://bio-gen.onrender.com/${selectedTool}`, {
             method: 'POST',
@@ -114,36 +152,42 @@ generateBtn.addEventListener('click', async () => {
         });
 
         if (!response.ok) {
-            // attempt to read error detail
             let errText = "API error";
             try {
                 const errJson = await response.json();
                 errText = errJson.detail || errText;
-            } catch (e) { /* ignore */ }
+            } catch (e) {}
             alert(errText);
             return;
         }
 
         const data = await response.json();
-        // sanitize / remove unwanted markdown characters if any (keeps design)
-        let text = data.result || "";
-        // simple cleanup (remove ** or markdown links) - optional
-        text = text.replace(/\*\*/g, "").replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1");
 
-        resultDiv.textContent = text + `\n\nRequests left: ${data.requests_left ?? ""}`;
+        // CLEAN RESULT
+        let text = data.result || "";
+        text = text.replace(/\*\*/g, "")
+                   .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1");
+
+        incrementRequestCount();
+
+        const remaining = getRemainingRequests();
+
+        resultDiv.textContent =
+            text + `\n\nRequests left today: ${remaining}`;
+
     } catch (err) {
         console.error(err);
         alert("API error");
     } finally {
-        // stop loader / restore button
         generateBtn.disabled = false;
         generateBtn.textContent = originalText;
     }
 });
 
-// ---------------------
-// Save
-// ---------------------
+/* ============================================
+   SAVE RESULT
+   ============================================
+*/
 saveBtn.addEventListener('click', () => {
     const text = resultDiv.textContent.trim();
     if (!text) return;
@@ -152,32 +196,29 @@ saveBtn.addEventListener('click', () => {
     updateSavedList();
 });
 
-// ---------------------
-// Copy + tick for 3 seconds
-// ---------------------
+// Save button animation
 document.getElementById("save-btn").addEventListener("click", function () {
     const btn = this;
-
-    btn.textContent = "Saved";   
+    btn.textContent = "Saved";
     btn.style.opacity = "0.7";
-
     setTimeout(() => {
         btn.textContent = "Save";
         btn.style.opacity = "1";
-    }, 1500);  // back to normal after 1.5 sec
+    }, 1500);
 });
 
-
+/* ============================================
+   COPY RESULT
+   ============================================
+*/
 copyBtn.addEventListener('click', () => {
     const text = resultDiv.textContent.trim();
     if (!text) return;
 
     navigator.clipboard.writeText(text).then(() => {
-        // set copied state
         copyBtn.classList.add('copied');
         const previous = copyBtn.textContent;
         copyBtn.textContent = '✔';
-        // revert after 3 seconds
         setTimeout(() => {
             copyBtn.classList.remove('copied');
             copyBtn.textContent = previous || 'Copy';
@@ -187,18 +228,20 @@ copyBtn.addEventListener('click', () => {
     });
 });
 
-// ---------------------
-// Clear saved
-// ---------------------
+/* ============================================
+   CLEAR SAVED LIST
+   ============================================
+*/
 clearSavedBtn.addEventListener('click', () => {
     savedItems = [];
     localStorage.removeItem('savedItems');
     updateSavedList();
 });
 
-// ---------------------
-// Update UI
-// ---------------------
+/* ============================================
+   UPDATE SAVED LIST UI
+   ============================================
+*/
 function updateSavedList() {
     savedList.innerHTML = "";
     savedItems.forEach(item => {
@@ -208,6 +251,7 @@ function updateSavedList() {
     });
 }
 
-    </script>
+</script>
+
 </body>
 </html>
