@@ -54,29 +54,42 @@
     </main>
 
     <script>
-async function detectIncognito() {
-    return new Promise(resolve => {
-        const fs = window.RequestFileSystem || window.webkitRequestFileSystem;
+async function isIncognitoMode() {
+    // Test IndexedDB
+    let db
+    try {
+        db = await new Promise((resolve, reject) => {
+            const req = indexedDB.open("test");
+            req.onerror = () => reject();
+            req.onsuccess = () => resolve(req.result);
+        });
+    } catch {
+        return true; // Incognito blocks IndexedDB
+    }
 
-        if (!fs) {
-            resolve(false);
-            return;
+    // Test Storage Quota (Incognito = much smaller)
+    if (navigator.storage && navigator.storage.estimate) {
+        const { quota } = await navigator.storage.estimate();
+        if (quota < 120 * 1024 * 1024) {
+            return true;
         }
+    }
 
-        fs(window.TEMPORARY, 100, 
-            () => resolve(false),   // normal mode
-            () => resolve(true)     // incognito mode
-        );
-    });
+    return false;
 }
 
 (async () => {
-    const incognito = await detectIncognito();
+    const incognito = await isIncognitoMode();
 
     if (incognito) {
-        document.body.innerHTML = "<h2 style='text-align:center;color:white;'>This site does not work in Incognito Mode.</h2>";
+        document.body.innerHTML = "";
+        // document.body.style.background = "black";
+
+        // Optional message:
+        document.body.innerHTML = "<h2 style='color:white;text-align:center;margin-top:40px;'>This website does not work in Incognito Mode.</h2>";
     }
 })();
+
  
 /* ============================================
    DAILY LIMIT USING LOCALSTORAGE (FRONTEND)
