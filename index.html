@@ -54,22 +54,30 @@
     </main>
 
     <script>
-let safeStorage = (() => {
-    try {
-        const testKey = "__test__";
-        localStorage.setItem(testKey, testKey);
-        localStorage.removeItem(testKey);
-        return localStorage;  // Works normally
-    } catch (e) {
-        // Incognito OR storage disabled → fallback
-        let memoryStore = {};
-        return {
-            getItem: (k) => memoryStore[k] || null,
-            setItem: (k, v) => { memoryStore[k] = v },
-            removeItem: (k) => { delete memoryStore[k] }
-        };
+async function detectIncognito() {
+    return new Promise(resolve => {
+        const fs = window.RequestFileSystem || window.webkitRequestFileSystem;
+
+        if (!fs) {
+            resolve(false);
+            return;
+        }
+
+        fs(window.TEMPORARY, 100, 
+            () => resolve(false),   // normal mode
+            () => resolve(true)     // incognito mode
+        );
+    });
+}
+
+(async () => {
+    const incognito = await detectIncognito();
+
+    if (incognito) {
+        document.body.innerHTML = "<h2 style='text-align:center;color:white;'>This site does not work in Incognito Mode.</h2>";
     }
-})();        
+})();
+ 
 /* ============================================
    DAILY LIMIT USING LOCALSTORAGE (FRONTEND)
    ============================================ */
