@@ -2,13 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+     <title>AI Social Media Content Generator | Bio, Caption & Username</title>
+    <meta name="description" content="Generate professional social media bios, captions, and usernames instantly with our AI-powered content generator. No sign-in required.">
+    <meta name="keywords" content="AI, social media, content generator, bio generator, caption generator, username generator, AI tools, generate captions">
+    <meta name="author" content="Your Name or Company">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:title" content="AI Social Media Content Generator">
+    <meta property="og:description" content="Instantly generate social media bios, captions, and usernames using AI.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bio-gen-frontend.vercel.app">
+    <meta property="og:image" content="https://bio-gen-frontend.vercel.app/social-preview.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Social Media Content Generator">
+    <meta name="twitter:description" content="Generate professional social media bios, captions, and usernames instantly with AI.">
+    <meta name="twitter:image" content="https://bio-gen-frontend.vercel.app/social-preview.png">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <title>AI Social Media Content Generators</title>
+    <title>AI Social Media Content Generator</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -54,122 +73,7 @@
     </main>
 
     <script>
-(function () {
-  const HIDE_PAGE = true; // set false to show message instead of blank page
-  const MESSAGE = "<h2 style='color:white;text-align:center;margin-top:40vh;font-family:Arial,Helvetica,sans-serif;'>This site is not available in Private / Incognito Mode.</h2>";
-
-  // Immediately hide body to avoid flicker; will restore if not incognito
-  const styleEl = document.createElement('style');
-  styleEl.id = 'incognito-hide-style';
-  styleEl.textContent = 'html{visibility:hidden !important;}';
-  document.documentElement.prepend(styleEl);
-
-  // Helpers
-  function revealPage() {
-    const el = document.getElementById('incognito-hide-style');
-    if (el) el.remove();
-  }
-  function killPageDisplay() {
-    // Clear all content and set black background
-    document.open();
-    if (HIDE_PAGE) {
-      document.write('');
-    } else {
-      document.write("<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'></head><body style='margin:0;background:#000;'>" + MESSAGE + "</body></html>");
-    }
-    document.close();
-  }
-
-  // Multi-heuristic detection (returns Promise<boolean>)
-  async function detectIncognito() {
-    // 1) Try quick synchronous localStorage/cookie test
-    try {
-      const TEST_KEY = '__ig_test__';
-      localStorage.setItem(TEST_KEY, TEST_KEY);
-      localStorage.removeItem(TEST_KEY);
-      // localStorage ok — not conclusive, continue
-    } catch (e) {
-      // localStorage blocked — strong signal for private
-      return true;
-    }
-
-    // 2) Try IndexedDB open (async)
-    let idbBlocked = false;
-    try {
-      await new Promise((resolve, reject) => {
-        const req = indexedDB.open('__ig_idb_test__');
-        let finished = false;
-        req.onsuccess = () => {
-          try { req.result.close(); indexedDB.deleteDatabase('__ig_idb_test__'); } catch(e){}
-          if (!finished) { finished = true; resolve(); }
-        };
-        req.onerror = () => { if (!finished) { finished = true; reject(); } };
-        // fallback timeout
-        setTimeout(() => { if (!finished) { finished = true; reject(); } }, 1200);
-      });
-    } catch (e) {
-      idbBlocked = true;
-    }
-    if (idbBlocked) return true; // strong signal
-
-    // 3) Storage Estimate (quota very low in incognito)
-    try {
-      if (navigator.storage && navigator.storage.estimate) {
-        const est = await navigator.storage.estimate();
-        if (typeof est.quota === 'number') {
-          // thresholds: incognito quotas vary; treat < 120MB as private (adjustable)
-          if (est.quota < 120 * 1024 * 1024) return true;
-        }
-      }
-    } catch (e) {
-      // ignore
-    }
-
-    // 4) FileSystem API heuristic (webkitRequestFileSystem)
-    try {
-      const fs = window.RequestFileSystem || window.webkitRequestFileSystem;
-      if (fs) {
-        const fsRes = await new Promise((resolve) => {
-          try {
-            fs(window.TEMPORARY, 100, () => resolve(false), () => resolve(true));
-          } catch (err) { resolve(false); }
-        });
-        if (fsRes) return true;
-      }
-    } catch (e) {}
-
-    // 5) ServiceWorker / persistent storage attempt (optional)
-    try {
-      if (navigator.storage && navigator.storage.persist) {
-        const persisted = await navigator.storage.persisted();
-        // If persisted() throws or returns false often in incognito - no certainty, skip strong decision
-        // We don't treat this alone as conclusive.
-      }
-    } catch (e) {}
-
-    // If none were conclusive, assume not incognito
-    return false;
-  }
-
-  // Run detection and act based on result
-  (async function () {
-    try {
-      const isIncog = await detectIncognito();
-      if (isIncog) {
-        killPageDisplay();
-      } else {
-        revealPage();
-      }
-    } catch (err) {
-      // If detection errored unexpectedly, reveal page to avoid locking out users
-      revealPage();
-    }
-  })();
-
-})();
-
-
- 
+        
 /* ============================================
    DAILY LIMIT USING LOCALSTORAGE (FRONTEND)
    ============================================ */
