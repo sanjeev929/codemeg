@@ -33,6 +33,29 @@ header h1 {
     color: transparent;
 }
 
+.seo-content {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 20px;
+  text-align: left;
+  line-height: 1.7;
+}
+
+.seo-content h2 {
+  margin-top: 40px;
+  font-size: 24px;
+}
+
+.seo-content h3 {
+  margin-top: 25px;
+  font-size: 18px;
+}
+
+.seo-content ul,
+.seo-content ol {
+  margin-left: 20px;
+}
+
 /* MAIN */
 main {
     max-width: 700px;
