@@ -1,257 +1,270 @@
-/* Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
+/* ================================
+   ROOT — PURE MONOCHROME
+================================ */
 :root {
-    --bg-dark: #0d0d14;
-    --bg-card: rgba(25, 25, 40, 0.8);
-    --text-main: #ffffff;
-    --text-sub: #b3b3c7;
-    --glass-border: rgba(255, 255, 255, 0.1);
+  --bg-main: #ffffff;
+  --bg-card: #ffffff;
+  --border: #e5e5e5;
 
-    --grad-1: #a259ff;
-    --grad-2: #4d7fff;
-    --grad-3: #ff4bcd;
+  --text-main: #000000;
+  --text-muted: #555555;
 }
 
-/* BODY */
+/* ================================
+   GLOBAL
+================================ */
+* {
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    background: radial-gradient(circle at top, #1a1a2e, #0d0d14 70%);
-    font-family: 'Inter', sans-serif;
-    color: var(--text-main);
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* HEADER */
+/* ================================
+   HEADER (APPLE HERO)
+================================ */
 header {
-    text-align: center;
-    padding: 3rem 1rem;
+  text-align: center;
+  padding: 5rem 1rem 4rem;
+  border-bottom: 1px solid var(--border);
+  animation: fadeDown 0.8s ease;
 }
+
 header h1 {
-    font-size: 2.4rem;
-    background: linear-gradient(90deg, var(--grad-1), var(--grad-2));
-    -webkit-background-clip: text;
-    color: transparent;
+  font-size: 3.1rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
-.seo-content {
-  max-width: 900px;
-  margin: 80px auto;
-  padding: 0 20px;
-  text-align: left;
-  line-height: 1.7;
+header p {
+  max-width: 720px;
+  margin: 16px auto 0;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
-.seo-content h2 {
-  margin-top: 40px;
-  font-size: 24px;
-}
-
-.seo-content h3 {
-  margin-top: 25px;
-  font-size: 18px;
-}
-
-.seo-content ul,
-.seo-content ol {
-  margin-left: 20px;
-}
-
-/* MAIN */
+/* ================================
+   MAIN
+================================ */
 main {
-    max-width: 700px;
-    margin: auto;
-    padding: 1rem;
+  max-width: 820px;
+  margin: auto;
+  padding: 2rem 1rem;
 }
 
-/* CARD */
-.generator, .saved {
-    background: var(--bg-card);
-    backdrop-filter: blur(18px);
-    padding: 2rem;
-    border-radius: 22px;
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 0 30px rgba(162, 89, 255, 0.15);
+/* ================================
+   CARDS
+================================ */
+.generator,
+.saved {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 2.6rem;
+  margin-bottom: 3rem;
+  animation: fadeUp 0.7s ease;
 }
 
-/* --------------------------- */
-/* CUSTOM DROPDOWN DESIGN */
-/* --------------------------- */
-
-.custom-dropdown {
-    width: 100%;
-    position: relative;
-    margin-bottom: 1rem;
-}
-
+/* ================================
+   DROPDOWN
+================================ */
 .dropdown-selected {
-    background: rgba(60, 60, 90, 0.4);
-    padding: 1rem;
-    border-radius: 12px;
-    border: 1px solid var(--glass-border);
-    cursor: pointer;
-    font-weight: 500;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  cursor: pointer;
+  font-weight: 500;
 }
 
 .dropdown-options {
-    position: absolute;
-    width: 100%;
-    background: rgba(40, 40, 65, 0.95);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    margin-top: 5px;
-    display: none;
-    max-height: 0;
-    overflow: hidden;
-    transition: 0.3s ease-in-out;
-    z-index: 5;
+  margin-top: 6px;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  display: none;
 }
 
 .dropdown-options.show {
-    display: block;
-    max-height: 200px;
+  display: block;
 }
 
 .dropdown-options div {
-    padding: 1rem;
-    cursor: pointer;
-    transition: 0.2s;
+  padding: 1rem;
+  cursor: pointer;
 }
 
 .dropdown-options div:hover {
-    background: rgba(80, 80, 120, 0.6);
+  background: #f4f4f4;
 }
 
-/* TEXTAREA */
+/* ================================
+   TEXTAREA
+================================ */
 textarea {
-    width: 100%;
-    border-radius: 12px;
-    padding: 1rem;
-    border: 1px solid var(--glass-border);
-    background: rgba(60, 60, 90, 0.4);
-    color: var(--text-main);
-    resize: none;
-    min-height: 100px;
+  width: 100%;
+  min-height: 150px;
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: black;
+  font-size: 16px;
+  resize: none;
 }
 
-/* BUTTON */
+textarea::placeholder {
+  color: #888;
+}
+
+/* ================================
+   BUTTONS — BLACK SQUARE
+================================ */
 button {
-    margin-top: 10px;
-    background: linear-gradient(90deg, var(--grad-1), var(--grad-2));
-    border: none;
-    padding: 0.9rem 1.5rem;
-    border-radius: 12px;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
+  padding: 14px 20px;
+  border: 1px solid #000000;
+  background: #000000;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-/* RESULT BOX */
-#result {
-    background: rgba(40, 40, 65, 0.5);
-    padding: 1rem;
-    border-radius: 12px;
-    min-height: 80px;
+button:hover {
+  background: #111111;
 }
 
-.saved {
-    margin-top: 2.5rem;
-}
-
-#saved-list li {
-    background: rgba(40,40,65,0.6);
-    padding: 0.8rem;
-    border-radius: 12px;
-    margin: 18px 0 10px 0;
-}
-
-/* LOADER (small spinner inline) */
-.loader {
-    border: 3px solid rgba(255,255,255,0.12);
-    border-left-color: #ffffff;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 8px;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* COPY BUTTON 'copied' state */
-#copy-btn.copied {
-    background: linear-gradient(90deg, #28c76f, #11b35a);
-    color: white;
-    pointer-events: none;
-}
-
-
-button {
-    min-width: 110px;     /* keeps size stable */
-}
-
-button#copy-btn,
-button#save-btn {
-    width: 110px;         /* same width always */
-    display: inline-block;
-    text-align: center;
-}
-
-/* SAVE BUTTON 'saved' state */
-#save-btn.saved {
-    background: linear-gradient(90deg, #28c76f, #11b35a);
-    color: white;
-    pointer-events: none;
-}
-
-
-/* small tweak when generate button disabled */
 button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* spacing */
+#generate-btn {
+  margin-top: 1.5rem;
+}
+
+/* ================================
+   RESULT
+================================ */
+#result {
+  margin-top: 14px;
+  padding: 1.3rem;
+  border: 1px solid var(--border);
+  background: #fafafa;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ================================
+   SAVED LIST
+================================ */
+#saved-list {
+  list-style: none;
+  padding: 0;
 }
 
 .saved-item {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    background: var(--card);
+  border: 1px solid var(--border);
+  padding: 14px;
+  margin-bottom: 14px;
+  background: #ffffff;
 }
 
-/* text stays on its own line, grows naturally */
 .saved-item span {
-    word-break: break-word;
-    font-size: 15px;
+  line-height: 1.6;
 }
 
-/* button row: COPY left, DELETE right */
 .saved-item-buttons {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
 }
 
 .small-btn {
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
+  padding: 8px 16px;
+  border: 1px solid #000000;
+  background: #000000;
+  color: #ffffff;
 }
 
 .small-btn.delete {
-    background: #ff4444;
-    color: white;
+  background: #ffffff;
+  color: #000000;
 }
 
-/* RESPONSIVE */
+/* ================================
+   SEO CONTENT
+================================ */
+.seo-content {
+  max-width: 900px;
+  margin: 120px auto;
+  padding: 0 20px;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+.seo-content h2,
+.seo-content h3 {
+  color: var(--text-main);
+}
+
+/* ================================
+   FOOTER
+================================ */
+footer {
+  text-align: center;
+  padding: 3rem 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ================================
+   ANIMATIONS (SUBTLE)
+================================ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================
+   MOBILE
+================================ */
 @media (max-width: 600px) {
-    header h1 { font-size: 2rem; }
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .saved-item-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

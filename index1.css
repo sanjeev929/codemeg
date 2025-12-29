@@ -1,0 +1,257 @@
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg-dark: #0d0d14;
+    --bg-card: rgba(25, 25, 40, 0.8);
+    --text-main: #ffffff;
+    --text-sub: #b3b3c7;
+    --glass-border: rgba(255, 255, 255, 0.1);
+
+    --grad-1: #a259ff;
+    --grad-2: #4d7fff;
+    --grad-3: #ff4bcd;
+}
+
+/* BODY */
+body {
+    margin: 0;
+    background: radial-gradient(circle at top, #1a1a2e, #0d0d14 70%);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+header h1 {
+    font-size: 2.4rem;
+    background: linear-gradient(90deg, var(--grad-1), var(--grad-2));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.seo-content {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 20px;
+  text-align: left;
+  line-height: 1.7;
+}
+
+.seo-content h2 {
+  margin-top: 40px;
+  font-size: 24px;
+}
+
+.seo-content h3 {
+  margin-top: 25px;
+  font-size: 18px;
+}
+
+.seo-content ul,
+.seo-content ol {
+  margin-left: 20px;
+}
+
+/* MAIN */
+main {
+    max-width: 700px;
+    margin: auto;
+    padding: 1rem;
+}
+
+/* CARD */
+.generator, .saved {
+    background: var(--bg-card);
+    backdrop-filter: blur(18px);
+    padding: 2rem;
+    border-radius: 22px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 0 30px rgba(162, 89, 255, 0.15);
+}
+
+/* --------------------------- */
+/* CUSTOM DROPDOWN DESIGN */
+/* --------------------------- */
+
+.custom-dropdown {
+    width: 100%;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.dropdown-selected {
+    background: rgba(60, 60, 90, 0.4);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.dropdown-options {
+    position: absolute;
+    width: 100%;
+    background: rgba(40, 40, 65, 0.95);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    margin-top: 5px;
+    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    z-index: 5;
+}
+
+.dropdown-options.show {
+    display: block;
+    max-height: 200px;
+}
+
+.dropdown-options div {
+    padding: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dropdown-options div:hover {
+    background: rgba(80, 80, 120, 0.6);
+}
+
+/* TEXTAREA */
+textarea {
+    width: 100%;
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid var(--glass-border);
+    background: rgba(60, 60, 90, 0.4);
+    color: var(--text-main);
+    resize: none;
+    min-height: 100px;
+}
+
+/* BUTTON */
+button {
+    margin-top: 10px;
+    background: linear-gradient(90deg, var(--grad-1), var(--grad-2));
+    border: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* RESULT BOX */
+#result {
+    background: rgba(40, 40, 65, 0.5);
+    padding: 1rem;
+    border-radius: 12px;
+    min-height: 80px;
+}
+
+.saved {
+    margin-top: 2.5rem;
+}
+
+#saved-list li {
+    background: rgba(40,40,65,0.6);
+    padding: 0.8rem;
+    border-radius: 12px;
+    margin: 18px 0 10px 0;
+}
+
+/* LOADER (small spinner inline) */
+.loader {
+    border: 3px solid rgba(255,255,255,0.12);
+    border-left-color: #ffffff;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* COPY BUTTON 'copied' state */
+#copy-btn.copied {
+    background: linear-gradient(90deg, #28c76f, #11b35a);
+    color: white;
+    pointer-events: none;
+}
+
+
+button {
+    min-width: 110px;     /* keeps size stable */
+}
+
+button#copy-btn,
+button#save-btn {
+    width: 110px;         /* same width always */
+    display: inline-block;
+    text-align: center;
+}
+
+/* SAVE BUTTON 'saved' state */
+#save-btn.saved {
+    background: linear-gradient(90deg, #28c76f, #11b35a);
+    color: white;
+    pointer-events: none;
+}
+
+
+/* small tweak when generate button disabled */
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.saved-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: var(--card);
+}
+
+/* text stays on its own line, grows naturally */
+.saved-item span {
+    word-break: break-word;
+    font-size: 15px;
+}
+
+/* button row: COPY left, DELETE right */
+.saved-item-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.small-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.small-btn.delete {
+    background: #ff4444;
+    color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    header h1 { font-size: 2rem; }
+}
