@@ -35,10 +35,31 @@
 
     <header class="site-header">
   <div class="nav">
+    <div class="logom">BioGen</div>
+
+    <!-- Hamburger for mobile -->
+    <div class="hamburger" onclick="toggleNav(this)">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <!-- Nav links -->
+    <div class="nav-links">
+      <a href="#product">Products</a>
+      <a href="#contact">Contact</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+</header>
+
+
+    <header class="site-header">
+  <div class="nav">
     <div class="logo">BioGen</div>
     <nav>
-      <a href="#generator">Generator</a>
-      <a href="#saved">Saved</a>
+      <a href="#product">Products</a>
+      <a href="#contact">Contact</a>
       <a href="#faq">FAQ</a>
     </nav>
   </div>
@@ -365,6 +386,10 @@ function updateSavedList() {
         savedList.appendChild(li);
     });
 }
+function toggleNav(el) {
+  el.parentElement.classList.toggle("active");
+}
+
 
 </script>
 
