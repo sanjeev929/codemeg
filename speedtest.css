@@ -1,12 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 
 /* ================================
    ROOT
 ================================ */
 :root {
   --bg: #ffffff;
-  --text: #000000;
-  --muted: #555555;
+  --text: #000;
+  --muted: #555;
   --border: #e6e6e6;
 }
 
@@ -19,7 +19,7 @@
 
 body {
   margin: 0;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: Inter, system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
@@ -138,7 +138,7 @@ nav a:hover::after {
 ================================ */
 .hero {
   text-align: center;
-  padding: 4rem 1rem 3rem;
+  padding: 4rem 1rem 2rem;
 }
 
 .hero h1 {
@@ -147,10 +147,7 @@ nav a:hover::after {
 }
 
 .hero p {
-  max-width: 720px;
-  margin: 16px auto 0;
   color: var(--muted);
-  line-height: 1.6;
 }
 
 /* ================================
@@ -163,113 +160,146 @@ main {
 }
 
 /* ================================
-   TOOLS
+   SPEED CONSOLE
 ================================ */
-.generator {
+.speed-console {
   border: 1px solid var(--border);
-  padding: 2.5rem;
-}
-
-.tools-grid {
-  margin-top: 2.5rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
+  padding: 3rem 2rem;
+  text-align: center;
 }
 
 /* ================================
-   TOOL CARD
+   SPEEDOMETER
 ================================ */
-.tool-card {
+.speedometer {
   position: relative;
-  padding: 2rem;
-  border: 1px solid var(--border);
-  background: #fff;
-  overflow: hidden;
-  animation: fadeUp 0.7s ease forwards;
-  opacity: 0;
+  width: 280px;
+  height: 280px;
+  margin: auto;
 }
 
-.tool-card:nth-child(1) { animation-delay: 0.1s; }
-.tool-card:nth-child(2) { animation-delay: 0.25s; }
+/* ================================
+   COLOR ARC
+================================ */
+.dial {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      #00ff99 0deg,
+      #00ff99 90deg,
+      #ffaa00 140deg,
+      #ff3b3b 200deg,
+      #e6e6e6 200deg,
+      #e6e6e6 360deg
+    );
+  mask: radial-gradient(circle, transparent 58%, black 60%);
+}
 
-.tool-card::before {
-  content: "";
+/* ================================
+   SPEED VALUES
+================================ */
+.ticks {
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent, rgba(0,0,0,0.05), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
-.tool-card:hover::before {
-  opacity: 1;
-}
-
-.tool-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.12);
-}
-
-.tool-card h3 {
-  margin-top: 0;
-  font-size: 1.35rem;
-}
-
-.tool-card p {
-  color: var(--muted);
-  margin: 0.8rem 0 1.8rem;
+.ticks span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:
+    translateX(-6px)
+    rotate(calc(-120deg + var(--i) * 40deg))
+    translate(0, -120px)
+    rotate(calc(120deg - var(--i) * 40deg));
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
+  letter-spacing: 0.4px;
 }
 
 /* ================================
-   BADGE
+   NEEDLE
 ================================ */
-.badge {
+.needle {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  font-size: 11px;
-  padding: 4px 8px;
+  width: 4px;
+  height: 120px;
   background: #000;
-  color: #fff;
-  font-weight: 600;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% 100%;
+  transform: translate(-50%, -100%) rotate(-90deg);
+  transition: transform 0.15s ease-out;
+  border-radius: 4px;
 }
 
-.badge.speed {
-  background: #111;
+/* ================================
+   SPEED TEXT
+================================ */
+.speed-readout {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.speed-readout span {
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.speed-readout small {
+  color: var(--muted);
 }
 
 /* ================================
    BUTTON
 ================================ */
-button {
-  width: 100%;
-  padding: 14px 20px;
-  border: 1px solid #000;
+.start-btn {
+  margin-top: 2rem;
+  padding: 16px 32px;
   background: #000;
   color: #fff;
+  border: 1px solid #000;
   font-weight: 600;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
 }
 
-button::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0.2);
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-}
-
-button:hover::after {
-  transform: translateX(0);
-}
-
-button:hover {
+.start-btn:hover {
   background: #fff;
   color: #000;
+}
+
+/* ================================
+   STATS
+================================ */
+.stats {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.stats div {
+  border: 1px solid var(--border);
+  padding: 1.2rem;
+}
+
+.stats span {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.stats small {
+  display: block;
+  color: var(--muted);
+  margin-top: 6px;
 }
 
 /* ================================
@@ -280,36 +310,29 @@ button:hover {
   padding: 2.5rem 1rem;
   text-align: center;
   color: var(--muted);
-  font-size: 14px;
-}
-
-/* ================================
-   ANIMATION
-================================ */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* ================================
    RESPONSIVE
 ================================ */
 @media (max-width: 768px) {
+
+  /* Hide desktop nav */
   .site-header {
     display: none;
   }
 
+  /* Show mobile nav */
   .mobile-site-header {
     display: block;
+    border-bottom: 1px solid var(--border);
   }
 
   .hero h1 {
     font-size: 2.2rem;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
   }
 }
