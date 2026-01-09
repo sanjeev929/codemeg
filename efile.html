@@ -1,93 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Primary Meta Tags -->
-  <title>Code meg – Free Base64 Image & Audio Encoder Decoder Online</title>
-  <meta name="description" content="CodeMeg offers free AI-powered tools to generate Instagram bios, captions, and usernames instantly. Test your internet speed quickly with no login required.">
-  <meta name="author" content="Sanjeev Kumar">
+  <meta charset="UTF-8">
+
+  <title>Free Base64 Image & Audio Encoder Decoder – CodeMeg</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Free Base64 encoder and decoder online. Convert images and audio to Base64 or decode Base64 back to files instantly. No signup required.">
+  <meta name="author" content="CodeMeg">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://sanjeev929.github.io/bio_gen_frontend/">
+  <link rel="canonical" href="https://codemeg.com/base64">
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:title" content="CodeMeg – Free AI & Network Tools">
-  <meta property="og:description" content="Generate Instagram bios, captions, usernames, and test your internet speed instantly. No login required.">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Free Base64 Image & Audio Tool">
+  <meta property="og:description" content="Encode and decode Base64 images and audio instantly.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sanjeev929.github.io/bio_gen_frontend/">
-  <meta property="og:image" content="https://sanjeev929.github.io/bio_gen_frontend/social-preview.png">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CodeMeg – Free AI & Network Tools">
-  <meta name="twitter:description" content="Instantly generate Instagram bios, captions, usernames and test internet speed with CodeMeg.">
-  <meta name="twitter:image" content="https://sanjeev929.github.io/bio_gen_frontend/social-preview.png">
+  <!-- Viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <!-- Stylesheet -->
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
   <link rel="stylesheet" href="efile.css">
 </head>
 
 <body>
 
-<!-- MOBILE HEADER -->
-<header class="mobile-site-header">
-  <div class="mobile-nav">
-    <div class="logom">CodeMeg</div>
-    <div class="hamburger" onclick="toggleNav(this)">
-      <div></div><div></div><div></div>
-    </div>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="#">Base64 Tool</a>
-    </div>
-  </div>
-</header>
-
-<!-- DESKTOP HEADER -->
 <header class="site-header">
   <div class="nav">
     <div class="logo">CodeMeg</div>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="#">Base64 Tool</a>
+      <a href="/">Home</a>
+      <a href="/base64">Base64 Tool</a>
     </nav>
   </div>
 </header>
 
-<!-- HERO -->
-<div class="hero">
+<section class="hero">
   <h1>Base64 Image & Audio Tool</h1>
-  <p>Encode or decode images and audio files using Base64 instantly.</p>
-</div>
+  <p>Encode or decode Base64 images and audio instantly. Free & fast.</p>
+</section>
 
 <main>
 <section class="generator">
 
-  <!-- FILE TYPE -->
-  <label>Choose File Type</label>
-  <select id="fileType">
-    <option value="image">Image</option>
-    <option value="audio">Audio</option>
-  </select>
+  <!-- DROPDOWN -->
+  <div class="gm-dropdown" id="toolDropdown">
+    <button class="gm-selected" id="toolSelected" type="button">
+      <span>Image → Base64</span>
+      <svg width="14" height="14" viewBox="0 0 24 24">
+        <path d="M7 10l5 5 5-5" fill="none" stroke="black" stroke-width="2"/>
+      </svg>
+    </button>
 
-  <!-- ACTION -->
-  <label>Choose Action</label>
-  <select id="actionType">
-    <option value="encode">Encode to Base64</option>
-    <option value="decode">Decode from Base64</option>
-  </select>
+    <div class="gm-options" id="toolOptions">
+      <div data-tool="img-encode" class="active">Image → Base64</div>
+      <div data-tool="img-decode">Base64 → Image</div>
+      <div data-tool="audio-encode">Audio → Base64</div>
+      <div data-tool="audio-decode">Base64 → Audio</div>
+    </div>
+  </div>
 
-  <!-- FILE INPUT -->
-  <input type="file" id="fileInput" />
-
-  <!-- BASE64 INPUT -->
-  <textarea id="base64Input" placeholder="Paste Base64 here..." style="display:none;"></textarea>
+  <!-- INPUTS -->
+  <input type="file" id="fileInput" accept="image/*,audio/*">
+  <textarea id="base64Input" placeholder="Paste Base64 here..." hidden></textarea>
 
   <button id="processBtn">Process</button>
 
@@ -96,6 +76,9 @@
     <h2>Result</h2>
     <textarea id="output" readonly></textarea>
 
+    <button id="copyBtn" style="display:none;">Copy Base64</button>
+    <button id="downloadBtn" style="display:none;">Download File</button>
+
     <div id="preview"></div>
   </div>
 
@@ -103,70 +86,148 @@
 </main>
 
 <footer class="site-footer">
-  <p>© 2025 CodeMeg. Built with AI. No tracking.</p>
+  <p>© 2025 CodeMeg. No tracking. No login.</p>
 </footer>
 
 <script>
-/* MOBILE NAV */
-function toggleNav(el) {
-  el.parentElement.classList.toggle("active");
-}
-
-const fileType = document.getElementById("fileType");
-const actionType = document.getElementById("actionType");
+/* ==========================
+   ELEMENTS
+========================== */
+const dropdown = document.getElementById("toolDropdown");
+const selectedBtn = document.getElementById("toolSelected");
+const options = document.getElementById("toolOptions");
 const fileInput = document.getElementById("fileInput");
 const base64Input = document.getElementById("base64Input");
 const output = document.getElementById("output");
 const preview = document.getElementById("preview");
-const processBtn = document.getElementById("processBtn");
+const copyBtn = document.getElementById("copyBtn");
+const downloadBtn = document.getElementById("downloadBtn");
 
-/* TOGGLE INPUTS */
-actionType.addEventListener("change", () => {
-  if (actionType.value === "decode") {
-    fileInput.style.display = "none";
-    base64Input.style.display = "block";
-  } else {
-    fileInput.style.display = "block";
-    base64Input.style.display = "none";
-  }
+let selectedTool = "img-encode";
+
+/* ==========================
+   DROPDOWN OPEN
+========================== */
+selectedBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  dropdown.classList.toggle("open");
 });
 
-/* PROCESS */
-processBtn.addEventListener("click", () => {
-  preview.innerHTML = "";
-  output.value = "";
+/* ==========================
+   OPTION CLICK (FIXED)
+========================== */
+options.querySelectorAll("div").forEach(option => {
+  option.addEventListener("click", (e) => {
+    e.stopPropagation();
 
-  if (actionType.value === "encode") {
+    selectedTool = option.dataset.tool;
+    selectedBtn.querySelector("span").textContent = option.textContent;
+
+    options.querySelectorAll(o => o.classList.remove("active"));
+    option.classList.add("active");
+
+    dropdown.classList.remove("open"); // ✅ CLOSE DROPDOWN
+
+    resetUI();
+
+    if (selectedTool.includes("decode")) {
+      fileInput.hidden = true;
+      base64Input.hidden = false;
+    } else {
+      fileInput.hidden = false;
+      base64Input.hidden = true;
+    }
+  });
+});
+
+/* ==========================
+   OUTSIDE CLICK CLOSE
+========================== */
+document.addEventListener("click", () => {
+  dropdown.classList.remove("open");
+});
+
+/* ==========================
+   PROCESS
+========================== */
+document.getElementById("processBtn").addEventListener("click", () => {
+  resetUI();
+
+  if (selectedTool.includes("encode")) {
     const file = fileInput.files[0];
-    if (!file) return alert("Select a file");
+    if (!file) return alert("Please select a file");
 
     const reader = new FileReader();
     reader.onload = () => {
       output.value = reader.result;
+      copyBtn.style.display = "inline-block";
     };
     reader.readAsDataURL(file);
-
   } else {
-    const base64 = base64Input.value.trim();
-    if (!base64) return alert("Paste Base64");
+    const b64 = base64Input.value.trim();
+    if (!b64) return alert("Paste Base64 data");
 
-    output.value = base64;
+    output.value = b64;
+    downloadBtn.style.display = "inline-block";
 
-    if (fileType.value === "image") {
+    if (selectedTool === "img-decode") {
       const img = document.createElement("img");
-      img.src = base64;
+      img.src = b64;
       img.className = "preview-img";
       preview.appendChild(img);
     }
 
-    if (fileType.value === "audio") {
+    if (selectedTool === "audio-decode") {
       const audio = document.createElement("audio");
       audio.controls = true;
-      audio.src = base64;
+      audio.src = b64;
       preview.appendChild(audio);
     }
   }
 });
+
+option.addEventListener("click", (e) => {
+  e.stopPropagation();
+
+  selectedTool = option.dataset.tool;
+  selectedBtn.querySelector("span").textContent = option.textContent;
+
+  options.querySelectorAll(o => o.classList.remove("active"));
+  option.classList.add("active");
+
+  dropdown.classList.remove("open"); // ✅ WILL CLOSE NOW
+});
+
+/* ==========================
+   COPY
+========================== */
+copyBtn.addEventListener("click", () => {
+  navigator.clipboard.writeText(output.value);
+  copyBtn.textContent = "Copied!";
+  setTimeout(() => copyBtn.textContent = "Copy Base64", 1200);
+});
+
+/* ==========================
+   DOWNLOAD
+========================== */
+downloadBtn.addEventListener("click", () => {
+  const a = document.createElement("a");
+  a.href = output.value;
+  a.download = selectedTool === "img-decode" ? "image.png" : "audio.mp3";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+});
+
+/* ==========================
+   RESET
+========================== */
+function resetUI() {
+  output.value = "";
+  preview.innerHTML = "";
+  copyBtn.style.display = "none";
+  downloadBtn.style.display = "none";
+}
 </script>
 
 </body>
