@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Code meg – Free Base64 Image & Audio Encoder Decoder Online</title>
+  <meta name="description" content="CodeMeg offers free AI-powered tools to generate Instagram bios, captions, and usernames instantly. Test your internet speed quickly with no login required.">
+  <meta name="author" content="Sanjeev Kumar">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sanjeev929.github.io/bio_gen_frontend/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="CodeMeg – Free AI & Network Tools">
+  <meta property="og:description" content="Generate Instagram bios, captions, usernames, and test your internet speed instantly. No login required.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sanjeev929.github.io/bio_gen_frontend/">
+  <meta property="og:image" content="https://sanjeev929.github.io/bio_gen_frontend/social-preview.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CodeMeg – Free AI & Network Tools">
+  <meta name="twitter:description" content="Instantly generate Instagram bios, captions, usernames and test internet speed with CodeMeg.">
+  <meta name="twitter:image" content="https://sanjeev929.github.io/bio_gen_frontend/social-preview.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="efile.css">
+</head>
+
+<body>
+
+<!-- MOBILE HEADER -->
+<header class="mobile-site-header">
+  <div class="mobile-nav">
+    <div class="logom">CodeMeg</div>
+    <div class="hamburger" onclick="toggleNav(this)">
+      <div></div><div></div><div></div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="#">Base64 Tool</a>
+    </div>
+  </div>
+</header>
+
+<!-- DESKTOP HEADER -->
+<header class="site-header">
+  <div class="nav">
+    <div class="logo">CodeMeg</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#">Base64 Tool</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Base64 Image & Audio Tool</h1>
+  <p>Encode or decode images and audio files using Base64 instantly.</p>
+</div>
+
+<main>
+<section class="generator">
+
+  <!-- FILE TYPE -->
+  <label>Choose File Type</label>
+  <select id="fileType">
+    <option value="image">Image</option>
+    <option value="audio">Audio</option>
+  </select>
+
+  <!-- ACTION -->
+  <label>Choose Action</label>
+  <select id="actionType">
+    <option value="encode">Encode to Base64</option>
+    <option value="decode">Decode from Base64</option>
+  </select>
+
+  <!-- FILE INPUT -->
+  <input type="file" id="fileInput" />
+
+  <!-- BASE64 INPUT -->
+  <textarea id="base64Input" placeholder="Paste Base64 here..." style="display:none;"></textarea>
+
+  <button id="processBtn">Process</button>
+
+  <!-- RESULT -->
+  <div id="result-section">
+    <h2>Result</h2>
+    <textarea id="output" readonly></textarea>
+
+    <div id="preview"></div>
+  </div>
+
+</section>
+</main>
+
+<footer class="site-footer">
+  <p>© 2025 CodeMeg. Built with AI. No tracking.</p>
+</footer>
+
+<script>
+/* MOBILE NAV */
+function toggleNav(el) {
+  el.parentElement.classList.toggle("active");
+}
+
+const fileType = document.getElementById("fileType");
+const actionType = document.getElementById("actionType");
+const fileInput = document.getElementById("fileInput");
+const base64Input = document.getElementById("base64Input");
+const output = document.getElementById("output");
+const preview = document.getElementById("preview");
+const processBtn = document.getElementById("processBtn");
+
+/* TOGGLE INPUTS */
+actionType.addEventListener("change", () => {
+  if (actionType.value === "decode") {
+    fileInput.style.display = "none";
+    base64Input.style.display = "block";
+  } else {
+    fileInput.style.display = "block";
+    base64Input.style.display = "none";
+  }
+});
+
+/* PROCESS */
+processBtn.addEventListener("click", () => {
+  preview.innerHTML = "";
+  output.value = "";
+
+  if (actionType.value === "encode") {
+    const file = fileInput.files[0];
+    if (!file) return alert("Select a file");
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      output.value = reader.result;
+    };
+    reader.readAsDataURL(file);
+
+  } else {
+    const base64 = base64Input.value.trim();
+    if (!base64) return alert("Paste Base64");
+
+    output.value = base64;
+
+    if (fileType.value === "image") {
+      const img = document.createElement("img");
+      img.src = base64;
+      img.className = "preview-img";
+      preview.appendChild(img);
+    }
+
+    if (fileType.value === "audio") {
+      const audio = document.createElement("audio");
+      audio.controls = true;
+      audio.src = base64;
+      preview.appendChild(audio);
+    }
+  }
+});
+</script>
+
+</body>
+</html>
