@@ -63,7 +63,7 @@ nav a:hover::after { width:100%; }
   position:relative;
   height:380px;
   overflow:hidden;
-  border-radius:8px;
+  border-radius:5px;
 }
 .slide {
   position:absolute;
