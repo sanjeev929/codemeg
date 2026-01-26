@@ -1,338 +1,276 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
-
-/* ================================
-   ROOT
-================================ */
 :root {
-  --bg: #ffffff;
-  --text: #000;
-  --muted: #555;
-  --border: #e6e6e6;
+  --text:#111;
+  --muted:#555;
+  --border:#ddd;
+  --accent:#000;
 }
 
-/* ================================
-   RESET
-================================ */
 * {
-  box-sizing: border-box;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 body {
-  margin: 0;
-  font-family: Inter, system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family:Inter,system-ui,sans-serif;
+  background:#fff;
+  color:var(--text);
 }
 
-/* ================================
-   DESKTOP NAV
-================================ */
-.site-header {
-  border-bottom: 1px solid var(--border);
+/* HEADER */
+.header {
+  border-bottom:1px solid var(--border);
 }
-
-.nav {
-  max-width: 1100px;
-  margin: auto;
-  padding: 1.6rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-
 .logo {
-  font-weight: 700;
-  font-size: 1.2rem;
+  font-weight:900;
+  font-size:1.4rem;
 }
-
+.logo span {
+  font-weight:700;
+}
 nav a {
-  margin-left: 24px;
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 500;
-  position: relative;
+  margin-left:26px;
+  text-decoration:none;
+  color:#000;
+  font-weight:600;
+  position:relative;
 }
-
 nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 0;
-  height: 2px;
-  background: #000;
-  transition: width 0.2s ease;
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:2px;
+  background:#000;
+  transition:.3s;
 }
+nav a:hover::after { width:100%; }
 
-nav a:hover::after {
-  width: 100%;
-}
-
-/* ================================
-   MOBILE NAV
-================================ */
-.mobile-site-header {
-  display: none;
-  border-bottom: 1px solid var(--border);
-}
-
-.mobile-nav {
-  padding: 1rem;
-  position: relative;
-}
-
-.logom {
-  font-weight: 700;
-  font-size: 1.2rem;
-}
-
-.hamburger {
-  width: 24px;
-  height: 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  position: absolute;
-  top: 1.2rem;
-  right: 1rem;
-}
-
-.hamburger div {
-  height: 3px;
-  background: #000;
-  transition: 0.3s;
-}
-
-.nav-links {
-  display: none;
-  flex-direction: column;
-  margin-top: 16px;
-  background: #fff;
-  border: 1px solid var(--border);
-}
-
-.nav-links a {
-  padding: 14px 16px;
-  text-decoration: none;
-  color: #000;
-  border-bottom: 1px solid #eee;
-}
-
-.mobile-nav.active .nav-links {
-  display: flex;
-}
-
-.mobile-nav.active .hamburger div:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-.mobile-nav.active .hamburger div:nth-child(2) {
-  opacity: 0;
-}
-.mobile-nav.active .hamburger div:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-
-/* ================================
-   HERO
-================================ */
+/* HERO */
 .hero {
-  text-align: center;
-  padding: 4rem 1rem 2rem;
+  text-align:center;
+  padding:80px 20px 40px;
 }
-
 .hero h1 {
-  font-size: 3rem;
-  letter-spacing: -0.03em;
+  font-size:40px;
 }
-
 .hero p {
-  color: var(--muted);
+  color:var(--muted);
+  margin-top:10px;
+  font-size:18px;
 }
 
-/* ================================
-   MAIN
-================================ */
-main {
-  max-width: 900px;
-  margin: auto;
-  padding: 2rem 1rem;
+/* MAIN */
+.speed-wrapper {
+  max-width:900px;
+  margin:60px auto;
+  padding:0 20px;
 }
 
-/* ================================
-   SPEED CONSOLE
-================================ */
 .speed-console {
-  border: 1px solid var(--border);
-  padding: 3rem 2rem;
-  text-align: center;
+  border:1px solid var(--border);
+  padding:50px 30px;
+  text-align:center;
+  background:#fafafa;
 }
 
-/* ================================
-   SPEEDOMETER
-================================ */
+/* SPEEDOMETER */
 .speedometer {
-  position: relative;
-  width: 280px;
-  height: 280px;
-  margin: auto;
+  position:relative;
+  width:280px;
+  height:280px;
+  margin:0 auto;
 }
 
-/* ================================
-   COLOR ARC
-================================ */
 .dial {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background:
-    conic-gradient(
-      #00ff99 0deg,
-      #00ff99 90deg,
-      #ffaa00 140deg,
-      #ff3b3b 200deg,
-      #e6e6e6 200deg,
-      #e6e6e6 360deg
-    );
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background:conic-gradient(
+    #00ff99 0deg,
+    #00ff99 90deg,
+    #ffaa00 140deg,
+    #ff3b3b 200deg,
+    #e6e6e6 200deg,
+    #e6e6e6 360deg
+  );
   mask: radial-gradient(circle, transparent 58%, black 60%);
 }
 
-/* ================================
-   SPEED VALUES
-================================ */
-.ticks {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
 .ticks span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position:absolute;
+  top:50%;
+  left:50%;
   transform:
     translateX(-6px)
     rotate(calc(-120deg + var(--i) * 40deg))
     translate(0, -120px)
     rotate(calc(120deg - var(--i) * 40deg));
-  font-size: 12px;
-  font-weight: 600;
-  color: #777;
-  letter-spacing: 0.4px;
+  font-size:12px;
+  font-weight:600;
+  color:#777;
 }
 
-/* ================================
-   NEEDLE
-================================ */
 .needle {
-  position: absolute;
-  width: 4px;
-  height: 120px;
-  background: #000;
-  top: 50%;
-  left: 50%;
-  transform-origin: 50% 100%;
-  transform: translate(-50%, -100%) rotate(-90deg);
-  transition: transform 0.15s ease-out;
-  border-radius: 4px;
+  position:absolute;
+  width:4px;
+  height:120px;
+  background:#000;
+  top:50%;
+  left:50%;
+  transform-origin:50% 100%;
+  transform:translate(-50%, -100%) rotate(-90deg);
+  transition:transform .15s ease-out;
 }
 
-/* ================================
-   SPEED TEXT
-================================ */
 .speed-readout {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
-
 .speed-readout span {
-  font-size: 3.2rem;
-  font-weight: 700;
+  font-size:3.2rem;
+  font-weight:700;
 }
-
 .speed-readout small {
-  color: var(--muted);
+  color:var(--muted);
 }
 
-/* ================================
-   BUTTON
-================================ */
-.start-btn {
-  margin-top: 2rem;
-  padding: 16px 32px;
-  background: #000;
-  color: #fff;
-  border: 1px solid #000;
-  font-weight: 600;
-  cursor: pointer;
+/* BUTTON */
+.btn {
+  margin-top:30px;
+  padding:14px 28px;
+  border:1px solid #000;
+  background:#000000;
+  color: #ffffff;
+  font-weight:600;
+  cursor:pointer;
+}
+.btn:hover {
+  background:#ffffff;
+  color:#000000;
 }
 
-.start-btn:hover {
-  background: #fff;
-  color: #000;
-}
-
-/* ================================
-   STATS
-================================ */
+/* STATS */
 .stats {
-  margin-top: 2.5rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  margin-top:40px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
 }
-
 .stats div {
-  border: 1px solid var(--border);
-  padding: 1.2rem;
+  border:1px solid var(--border);
+  padding:18px;
 }
-
 .stats span {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size:1.4rem;
+  font-weight:700;
 }
-
 .stats small {
-  display: block;
-  color: var(--muted);
-  margin-top: 6px;
+  display:block;
+  color:var(--muted);
+  margin-top:6px;
 }
 
 /* ================================
-   FOOTER
+   FOOTER – DARK TEXT
 ================================ */
-.site-footer {
+.footer {
   border-top: 1px solid var(--border);
-  padding: 2.5rem 1rem;
-  text-align: center;
-  color: var(--muted);
+  background: transparent;
+  padding: 28px 20px;
 }
+
+.footer-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* LEFT */
+.footer-left {
+  font-size: 14px;
+  color: #111; /* dark text */
+  white-space: nowrap;
+}
+
+/* CENTER – SOCIAL ICONS */
+.footer-center {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-center a {
+  font-size: 18px;
+  color: #111; /* dark */
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-center a:hover {
+  transform: translateY(-2px);
+  opacity: 0.7;
+}
+
+/* RIGHT – TERMS & PRIVACY */
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-right a {
+  font-size: 13px;
+  color: #111; /* dark text */
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* SAME hover as center */
+.footer-right a:hover {
+  transform: translateY(-2px);
+  opacity: 0.7;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+}
+
+
 
 /* ================================
    RESPONSIVE
 ================================ */
-@media (max-width: 768px) {
-
-  /* Hide desktop nav */
-  .site-header {
-    display: none;
+@media (max-width: 700px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
   }
 
-  /* Show mobile nav */
-  .mobile-site-header {
-    display: block;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .hero h1 {
-    font-size: 2.2rem;
-  }
-
-  .stats {
-    grid-template-columns: 1fr;
+  .footer-center,
+  .footer-right {
+    justify-content: center;
   }
 }
