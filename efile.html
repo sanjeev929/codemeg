@@ -1,71 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="msvalidate.01" content="8A8E1A572C612179D3CF32B041F47E14" />
-    <title>Free Base64 Image & Audio Encoder Decoder – CodeMeg</title>
-    <meta name="description" content="Encode or decode Base64 images and audio files instantly with CodeMeg's free online tool. No login required.">
-    <meta name="keywords" content="base64 encoder, base64 decoder, image to base64, audio to base64, base64 image decoder" />
-    <link rel="canonical" href="https://sanjeev929.github.io/bio_gen_frontend/">
-    <link rel="icon" href="image/profile/favicon.ico" type="image/x-icon">
-    <meta property="og:title" content="CodeMeg – Free AI & Network Tools">
-    <meta property="og:description" content="Building scalable backend & AI systems">
-    <meta property="og:image" content="https://sanjeev929.github.io/bio_gen_frontend/preview.png">
-    <meta name="google-site-verification" content="bbW5R8gHE6YUwTFsM7noCEeCnpO1Pr8oraRCvsjGE4w" />
-    <link rel="apple-touch-icon" sizes="180x180" href="image/profile/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="image/profile/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="image/profile/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/image/profile/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/image/profile/favicon-16x16.png">
-    <link rel="apple-touch-icon" href="/image/profile/apple-touch-icon.png">
-    <link rel="manifest" href="image/profile/site.webmanifest">
-    <link rel="mask-icon" href="image/profile/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="efile.css">
+  <meta charset="UTF-8">
+  <title>Free Base64 Image & Audio Encoder Decoder – CodeMeg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <meta name="description" content="Free Base64 Image & Audio Encoder Decoder. Convert images and audio to Base64 or decode Base64 instantly. No login required.">
+  <meta name="keywords" content="base64 encoder, base64 decoder, image to base64, audio to base64">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://yourdomain.com/base64.html">
+
+  <!-- Favicon (same as main site) -->
+  <link rel="icon" href="image/profile/favicon.ico">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="efile.css">
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="nav">
-    <div class="logo">CodeMeg</div>
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <div class="logo">Code<span>Meg</span></div>
     <nav>
       <a href="index.html">Home</a>
-      <a href="https://sanjeev929.github.io/">Blog</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html#tools">Tools</a>
       <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
   <h1>Base64 Image & Audio Tool</h1>
-  <p>Encode or decode Base64 images and audio instantly. Free & fast.</p>
+  <p>Encode or decode images and audio instantly. Free & privacy-friendly.</p>
 </section>
 
-<main>
-  <section class="generator">
+<!-- TOOL -->
+<main class="tool-wrapper">
+
+  <div class="tool-box">
 
     <!-- DROPDOWN -->
-    <div class="gm-dropdown" id="toolDropdown">
-      <button class="gm-selected" id="toolSelected" type="button">
+    <div class="dropdown">
+      <button id="selectedTool">
         <span>Image → Base64</span>
-        <svg width="14" height="14" viewBox="0 0 24 24">
-          <path d="M7 10l5 5 5-5" fill="none" stroke="black" stroke-width="2"/>
-        </svg>
+        <i class="fas fa-chevron-down"></i>
       </button>
 
-      <div class="gm-options" id="toolOptions">
+      <div class="options">
         <div data-tool="img-encode" class="active">Image → Base64</div>
         <div data-tool="img-decode">Base64 → Image</div>
         <div data-tool="audio-encode">Audio → Base64</div>
@@ -73,95 +64,95 @@
       </div>
     </div>
 
-    <!-- INPUTS -->
+    <!-- INPUT -->
     <input type="file" id="fileInput" accept="image/*,audio/*">
     <textarea id="base64Input" placeholder="Paste Base64 here..." hidden></textarea>
 
-    <button id="processBtn">Process</button>
+    <button id="processBtn" class="btn">Process</button>
 
     <!-- RESULT -->
-    <div id="result-section">
+    <div class="result">
       <h2>Result</h2>
       <textarea id="output" readonly></textarea>
 
-      <button id="copyBtn" hidden>Copy Base64</button>
-      <button id="downloadBtn" hidden>Download File</button>
+      <div class="actions">
+        <button id="copyBtn" class="btn" hidden>Copy Base64</button>
+        <button id="downloadBtn" class="btn" hidden>Download</button>
+      </div>
 
       <div id="preview"></div>
     </div>
 
-  </section>
+  </div>
+
 </main>
 
-<footer class="site-footer">
-  <p>© 2025 CodeMeg. No tracking. No login.</p>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>© 2026 CodeMeg</div>
+
+    <div class="footer-center">
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-x-twitter"></i></a>
+    </div>
+
+    <div class="footer-right">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms & Conditions</a>
+    </div>
+  </div>
 </footer>
 
 <!-- JS -->
-<script>
-    /* ==========================
-   ELEMENTS
-========================== */
-const dropdown = document.getElementById("toolDropdown");
-const selectedBtn = document.getElementById("toolSelected");
-const options = document.querySelectorAll("#toolOptions div");
+<script>const dropdown = document.querySelector(".dropdown");
+const selectedBtn = document.getElementById("selectedTool");
+const options = document.querySelectorAll(".options div");
+
 const fileInput = document.getElementById("fileInput");
 const base64Input = document.getElementById("base64Input");
 const output = document.getElementById("output");
 const preview = document.getElementById("preview");
 const copyBtn = document.getElementById("copyBtn");
 const downloadBtn = document.getElementById("downloadBtn");
+const processBtn = document.getElementById("processBtn");
 
 let selectedTool = "img-encode";
 
-/* ==========================
-   DROPDOWN OPEN / CLOSE
-========================== */
-selectedBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
+/* Dropdown */
+selectedBtn.addEventListener("click", () => {
   dropdown.classList.toggle("open");
 });
 
-document.addEventListener("click", () => {
-  dropdown.classList.remove("open");
+document.addEventListener("click", e => {
+  if (!dropdown.contains(e.target)) dropdown.classList.remove("open");
 });
 
-/* ==========================
-   OPTION SELECT
-========================== */
-options.forEach(option => {
-  option.addEventListener("click", (e) => {
-    e.stopPropagation();
-
-    selectedTool = option.dataset.tool;
-    selectedBtn.querySelector("span").textContent = option.textContent;
+/* Tool select */
+options.forEach(opt => {
+  opt.addEventListener("click", () => {
+    selectedTool = opt.dataset.tool;
+    selectedBtn.querySelector("span").textContent = opt.textContent;
 
     options.forEach(o => o.classList.remove("active"));
-    option.classList.add("active");
+    opt.classList.add("active");
 
-    // Show/hide input fields
-    if (selectedTool.includes("decode")) {
-      fileInput.hidden = true;
-      base64Input.hidden = false;
-    } else {
-      fileInput.hidden = false;
-      base64Input.hidden = true;
-    }
+    fileInput.hidden = selectedTool.includes("decode");
+    base64Input.hidden = !fileInput.hidden;
 
     resetUI();
     dropdown.classList.remove("open");
   });
 });
 
-/* ==========================
-   PROCESS FILE / BASE64
-========================== */
-document.getElementById("processBtn").addEventListener("click", () => {
+/* Process */
+processBtn.addEventListener("click", () => {
   resetUI();
 
   if (selectedTool.includes("encode")) {
     const file = fileInput.files[0];
-    if (!file) return alert("Please select a file");
+    if (!file) return alert("Select a file");
 
     const reader = new FileReader();
     reader.onload = () => {
@@ -170,59 +161,49 @@ document.getElementById("processBtn").addEventListener("click", () => {
     };
     reader.readAsDataURL(file);
   } else {
-    const b64 = base64Input.value.trim();
-    if (!b64) return alert("Paste Base64 data");
+    if (!base64Input.value.trim()) return alert("Paste Base64");
 
-    output.value = b64;
+    output.value = base64Input.value.trim();
     downloadBtn.hidden = false;
 
     if (selectedTool === "img-decode") {
       const img = document.createElement("img");
-      img.src = b64;
-      img.className = "preview-img";
+      img.src = output.value;
       preview.appendChild(img);
     }
 
     if (selectedTool === "audio-decode") {
       const audio = document.createElement("audio");
       audio.controls = true;
-      audio.src = b64;
+      audio.src = output.value;
       preview.appendChild(audio);
     }
   }
 });
 
-/* ==========================
-   COPY TO CLIPBOARD
-========================== */
+/* Copy */
 copyBtn.addEventListener("click", () => {
   navigator.clipboard.writeText(output.value);
   copyBtn.textContent = "Copied!";
   setTimeout(() => copyBtn.textContent = "Copy Base64", 1200);
 });
 
-/* ==========================
-   DOWNLOAD FILE
-========================== */
+/* Download */
 downloadBtn.addEventListener("click", () => {
   const a = document.createElement("a");
   a.href = output.value;
   a.download = selectedTool === "img-decode" ? "image.png" : "audio.mp3";
-  document.body.appendChild(a);
   a.click();
-  document.body.removeChild(a);
 });
 
-/* ==========================
-   RESET UI
-========================== */
+/* Reset */
 function resetUI() {
   output.value = "";
   preview.innerHTML = "";
   copyBtn.hidden = true;
   downloadBtn.hidden = true;
 }
-
 </script>
+
 </body>
 </html>
