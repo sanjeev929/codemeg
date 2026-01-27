@@ -1,0 +1,240 @@
+:root {
+  --text:#111;
+  --border:#ddd;
+  --bg:#fff;
+}
+
+body {
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* HEADER */
+.header {
+  border-bottom:1px solid var(--border);
+}
+
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:30px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo {
+  font-weight:900;
+  font-size:1.4rem;
+}
+
+nav a {
+  margin-left:26px;
+  text-decoration:none;
+  color:var(--text);
+  font-weight:600;
+  position:relative;
+}
+
+nav a::after {
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:2px;
+  background:var(--text);
+  transition:.3s;
+}
+
+nav a:hover::after {
+  width:100%;
+}
+
+/* ================================
+   NEXT-LEVEL FAQ DESIGN
+================================ */
+
+.faq-page {
+  max-width: 860px;
+  margin: 90px auto;
+  padding: 20px;
+}
+
+.faq-page h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.faq-intro {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 50px;
+  max-width: 620px;
+}
+
+/* FAQ CARD */
+.faq-item {
+  margin-bottom: 18px;
+  border-radius: 0px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.faq-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* QUESTION */
+.faq-question {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 22px 24px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* PLUS / MINUS ICON */
+.faq-question::after {
+  content: "+";
+  font-size: 22px;
+  font-weight: 700;
+  color: #555;
+  transition: transform 0.3s ease;
+}
+
+/* ACTIVE STATE */
+.faq-question.active {
+  background: linear-gradient(135deg, #000, #222);
+  color: #fff;
+}
+
+.faq-question.active::after {
+  content: "–";
+  color: #fff;
+}
+
+/* ANSWER */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.3s ease;
+  background: #fff;
+}
+
+.faq-answer p {
+  padding: 22px 24px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333;
+  border-top: 1px solid var(--border);
+}
+
+/* OPEN STATE SPACING */
+.faq-question.active + .faq-answer {
+  padding-bottom: 6px;
+}
+/* ================================
+   FOOTER – DARK TEXT
+================================ */
+.footer {
+  border-top: 1px solid var(--border);
+  background: transparent;
+  padding: 28px 20px;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* LEFT */
+.footer-left {
+  font-size: 14px;
+  color: #111; /* dark text */
+  white-space: nowrap;
+}
+
+/* CENTER – SOCIAL ICONS */
+.footer-center {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-center a {
+  font-size: 18px;
+  color: #111; /* dark */
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-center a:hover {
+  transform: translateY(-2px);
+  opacity: 0.7;
+}
+
+/* RIGHT – TERMS & PRIVACY */
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-right a {
+  font-size: 13px;
+  color: #111; /* dark text */
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* SAME hover as center */
+.footer-right a:hover {
+  transform: translateY(-2px);
+  opacity: 0.7;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+}
+
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 700px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-center,
+  .footer-right {
+    justify-content: center;
+  }
+}

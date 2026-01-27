@@ -1,0 +1,202 @@
+:root {
+  --text:#111;
+  --border:#ddd;
+  --bg:#fff;
+}
+
+body {
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+body.dark {
+  --bg:#0f0f0f;
+  --text:#fff;
+  --border:#333;
+}
+
+/* HEADER */
+.header {
+  border-bottom:1px solid var(--border);
+}
+
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:30px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo {
+  font-weight:900;
+  font-size:1.4rem;
+}
+
+nav a {
+  margin-left:26px;
+  text-decoration:none;
+  color:var(--text);
+  font-weight:600;
+  position:relative;
+}
+
+nav a::after {
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:2px;
+  background:var(--text);
+  transition:.3s;
+}
+
+nav a:hover::after {
+  width:100%;
+}
+
+/* CONTACT */
+.contact-page {
+  max-width:600px;
+  margin:80px auto;
+  padding:20px;
+}
+
+.contact-page h1 {
+  margin-bottom:10px;
+}
+
+.contact-page p {
+  margin-bottom:30px;
+}
+
+form {
+  display:flex;
+  flex-direction:column;
+}
+
+label {
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+input, textarea {
+  padding:12px;
+  margin-bottom:18px;
+  border:1px solid var(--border);
+  font-family:inherit;
+}
+
+button {
+  padding:12px;
+  border:1px solid #000;
+  background:#000;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+button:hover {
+  background:#fff;
+  color:#000;
+}
+
+#status-message {
+  margin-top:12px;
+  font-weight:600;
+}
+
+/* ================================
+   FOOTER – DARK TEXT
+================================ */
+.footer {
+  border-top: 1px solid var(--border);
+  background: transparent;
+  padding: 28px 20px;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* LEFT */
+.footer-left {
+  font-size: 14px;
+  color: #111; /* dark text */
+  white-space: nowrap;
+}
+
+/* CENTER – SOCIAL ICONS */
+.footer-center {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-center a {
+  font-size: 18px;
+  color: #111; /* dark */
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-center a:hover {
+  transform: translateY(-2px);
+  opacity: 0.7;
+}
+
+/* RIGHT – TERMS & PRIVACY */
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-right a {
+  font-size: 13px;
+  color: #111; /* dark text */
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* SAME hover as center */
+.footer-right a:hover {
+  transform: translateY(-2px);
+  opacity: 0.7;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+}
+
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 700px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-center,
+  .footer-right {
+    justify-content: center;
+  }
+}
