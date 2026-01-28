@@ -97,7 +97,8 @@
 </footer>
 
 <script>
-    const DAILY_LIMIT = 6;
+/* ================= LIMIT SYSTEM ================= */
+const DAILY_LIMIT = 6;
 
 function getToday() {
   return new Date().toISOString().split("T")[0];
@@ -123,15 +124,17 @@ function updateRemaining() {
   document.getElementById("remaining-count").textContent =
     `Requests Left Today: ${DAILY_LIMIT - getRequestCount()}`;
 }
+
 document.addEventListener("DOMContentLoaded", updateRemaining);
 
-/* DROPDOWN */
+/* ================= DROPDOWN ================= */
 const dropdownSelected = document.getElementById("dropdownSelected");
 const dropdownOptions = document.getElementById("dropdownOptions");
 let selectedTool = "bio";
 
-dropdownSelected.onclick = () =>
+dropdownSelected.onclick = () => {
   dropdownOptions.classList.toggle("show");
+};
 
 dropdownOptions.querySelectorAll("div").forEach(opt => {
   opt.onclick = () => {
@@ -141,7 +144,7 @@ dropdownOptions.querySelectorAll("div").forEach(opt => {
   };
 });
 
-/* GENERATE */
+/* ================= GENERATE ================= */
 document.getElementById("generate-btn").onclick = async () => {
   const prompt = document.getElementById("prompt").value.trim();
   if (!prompt) return alert("Enter prompt");
@@ -151,23 +154,39 @@ document.getElementById("generate-btn").onclick = async () => {
     return;
   }
 
-  const res = await fetch(`https://bio-gen.onrender.com/${selectedTool}`, {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({ prompt })
-  });
+  document.getElementById("result").textContent = "Generating...";
 
-  const data = await res.json();
-  document.getElementById("result").textContent = data.result || "";
-  incrementRequestCount();
-  updateRemaining();
+  try {
+    const res = await fetch(`https://bio-gen.onrender.com/${selectedTool}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt })
+    });
+
+    if (!res.ok) {
+      throw new Error("Server error: " + res.status);
+    }
+
+    const data = await res.json();
+    document.getElementById("result").textContent = data.result || "No result";
+
+    incrementRequestCount();
+    updateRemaining();
+
+  } catch (err) {
+    console.error(err);
+    alert("API error — open console for details");
+    document.getElementById("result").textContent = "";
+  }
 };
 
-/* COPY */
+/* ================= COPY ================= */
 document.getElementById("copy-btn").onclick = () => {
-  navigator.clipboard.writeText(document.getElementById("result").textContent);
+  navigator.clipboard.writeText(
+    document.getElementById("result").textContent
+  );
 };
-
 </script>
+
 </body>
 </html>
