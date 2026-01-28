@@ -64,7 +64,7 @@
     <textarea id="prompt" placeholder="Type something..."></textarea>
     <button id="generate-btn">Generate</button>
 
-    <div id="result-section">
+    <div id="result-section" style="display:none;">
       <h2>Result</h2>
       <div id="result"></div>
       <button id="save-btn">Save</button>
@@ -97,7 +97,8 @@
 </footer>
 
 <script>
-    const DAILY_LIMIT = 6;
+/* ================= LIMIT ================= */
+const DAILY_LIMIT = 6;
 
 function getToday() {
   return new Date().toISOString().split("T")[0];
@@ -123,15 +124,20 @@ function updateRemaining() {
   document.getElementById("remaining-count").textContent =
     `Requests Left Today: ${DAILY_LIMIT - getRequestCount()}`;
 }
-document.addEventListener("DOMContentLoaded", updateRemaining);
 
-/* DROPDOWN */
+document.addEventListener("DOMContentLoaded", () => {
+  updateRemaining();
+  loadSaved();
+});
+
+/* ================= DROPDOWN ================= */
 const dropdownSelected = document.getElementById("dropdownSelected");
 const dropdownOptions = document.getElementById("dropdownOptions");
 let selectedTool = "bio";
 
-dropdownSelected.onclick = () =>
+dropdownSelected.onclick = () => {
   dropdownOptions.classList.toggle("show");
+};
 
 dropdownOptions.querySelectorAll("div").forEach(opt => {
   opt.onclick = () => {
@@ -141,7 +147,13 @@ dropdownOptions.querySelectorAll("div").forEach(opt => {
   };
 });
 
-/* GENERATE */
+document.addEventListener("click", e => {
+  if (!document.getElementById("dropdown").contains(e.target)) {
+    dropdownOptions.classList.remove("show");
+  }
+});
+
+/* ================= GENERATE ================= */
 document.getElementById("generate-btn").onclick = async () => {
   const prompt = document.getElementById("prompt").value.trim();
   if (!prompt) return alert("Enter prompt");
@@ -151,23 +163,60 @@ document.getElementById("generate-btn").onclick = async () => {
     return;
   }
 
-  const res = await fetch(`https://bio-gen.onrender.com/${selectedTool}`, {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({ prompt })
-  });
+  try {
+    const res = await fetch(`https://bio-gen.onrender.com/${selectedTool}`, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({ prompt })
+    });
 
-  const data = await res.json();
-  document.getElementById("result").textContent = data.result || "";
-  incrementRequestCount();
-  updateRemaining();
+    const data = await res.json();
+    document.getElementById("result").textContent = data.result || "No result";
+    document.getElementById("result-section").style.display = "block";
+
+    incrementRequestCount();
+    updateRemaining();
+  } catch (err) {
+    alert("Server error. Try again later.");
+  }
 };
 
-/* COPY */
+/* ================= COPY ================= */
 document.getElementById("copy-btn").onclick = () => {
   navigator.clipboard.writeText(document.getElementById("result").textContent);
+  alert("Copied!");
 };
 
+/* ================= SAVE ================= */
+document.getElementById("save-btn").onclick = () => {
+  const text = document.getElementById("result").textContent;
+  if (!text) return;
+
+  const saved = JSON.parse(localStorage.getItem("saved_items")) || [];
+  saved.push(text);
+  localStorage.setItem("saved_items", JSON.stringify(saved));
+  loadSaved();
+};
+
+/* ================= LOAD SAVED ================= */
+function loadSaved() {
+  const list = document.getElementById("saved-list");
+  list.innerHTML = "";
+
+  const saved = JSON.parse(localStorage.getItem("saved_items")) || [];
+  saved.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.appendChild(li);
+  });
+}
+
+/* ================= CLEAR SAVED ================= */
+document.getElementById("clear-saved").onclick = () => {
+  localStorage.removeItem("saved_items");
+  loadSaved();
+};
 </script>
+
 </body>
 </html>
