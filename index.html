@@ -15,6 +15,14 @@
 <body>
 <header class="header">
   <div class="container">
+      <div class="hamburger" onclick="toggleNav()">☰</div>
+      <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-close" onclick="toggleNav()">✖</button>
+        <a href="index.html">Home</a>
+        <a href="#tools">Tools</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+      </div>
     <div class="logo">Code<span>Meg</span></div>
     <nav>
       <a href="index.html">Home</a>
@@ -121,6 +129,10 @@
 const slides = document.querySelectorAll(".slide");
 const dots = document.querySelectorAll(".dot");
 let index = 0;
+
+function toggleNav() {
+  document.getElementById("mobileNav").classList.toggle("open");
+}
 
 function showSlide(i) {
   slides.forEach(s => s.classList.remove("active"));

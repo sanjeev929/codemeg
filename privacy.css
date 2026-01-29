@@ -206,22 +206,105 @@ nav a:hover::after {
   opacity: 0.7;
 }
 
-/* MOBILE */
-@media (max-width: 600px) {
-  .footer-inner {
-    flex-direction: column;
-    text-align: center;
-    gap: 16px;
-  }
+.hamburger {
+    display: none;
 }
 
+.mobile-nav {
+    display: none;
+}
 
+@media (max-width: 768px) {
 
-/* ================================
-   RESPONSIVE
-================================ */
-@media (max-width: 700px) {
-  .footer-inner {
+  /* ===================== MOBILE HEADER / NAV ===================== */
+
+  .hamburger {
+      display: block;
+      cursor: pointer;
+      font-size: 28px;
+      margin-right: 15px;
+  }
+
+  /* Hide Desktop Nav */
+  nav, 
+  .nav-right nav {
+      display: none !important;
+  }
+  /* -------------------------------
+   MOBILE DARK MODE NAV
+    ---------------------------------*/
+    body.dark .mobile-nav {
+        background: var(--card); /* dark background */
+    }
+
+    body.dark .mobile-nav a {
+        color: var(--text); /* white text */
+    }
+
+    body.dark .mobile-nav a:hover {
+        background: var(--accent); /* hover background in dark mode */
+        color: var(--bg);           /* hover text in dark mode */
+    }
+
+    body.dark .mobile-close {
+        color: var(--text); /* close button white */
+    }
+
+    body.dark .mobile-close:hover {
+        color: var(--accent); /* hover color for close button */
+    }
+
+  /* Mobile Nav Dropdown */
+  .mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: #fff;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      padding: 10px 0;
+      border-bottom: 1px solid #ccc;
+      z-index: 9999 !important;
+  }
+
+  .mobile-nav.open {
+      display: flex;
+  }
+
+  .mobile-nav a {
+      padding: 12px 20px;
+      color: #000;
+      font-weight: 600;
+      text-decoration: none;
+      border-top: 1px solid #eee;
+  }
+
+  .mobile-nav a:first-child {
+      border-top: none;
+  }
+
+  .mobile-nav a:hover {
+      background: #000;
+      color: #fff;
+      transition: 0.2s ease;
+  }
+
+  .mobile-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--text);
+    text-align: right;
+    width: 100%;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.mobile-close:hover {
+    color: var(--accent);
+}
+.footer-inner {
     flex-direction: column;
     text-align: center;
   }
