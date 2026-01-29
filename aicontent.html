@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="msvalidate.01" content="8A8E1A572C612179D3CF32B041F47E14" />
 
   <title>Free AI Bio, Username & Caption Generator</title>
   <meta name="description" content="Generate unique Instagram bios, usernames, and captions using AI. Free social media content generator. No login required.">
@@ -13,6 +14,7 @@
   <meta property="og:title" content="CodeMeg – Free AI Tools">
   <meta property="og:description" content="Generate bios, captions & usernames using AI">
   <meta property="og:image" content="preview.png">
+  
 
   <!-- Icons -->
   <link rel="icon" href="image/profile/favicon.ico">
@@ -228,6 +230,19 @@ document.getElementById("clear-saved").onclick = () => {
   localStorage.removeItem("saved_items");
   loadSaved();
 };
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "CodeMeg Tools",
+  "url": "https://codemeg.com/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://codemeg.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
 </script>
 
 </body>
