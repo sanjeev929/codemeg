@@ -164,6 +164,74 @@ nav a:hover::after { width:100%; }
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:30px;
 }
+
+/* ===== Tool Video Section ===== */
+.tool-video {
+  max-width: 1100px;
+  margin: 120px auto;
+  padding: 0 20px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Text */
+.video-text h2 {
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+.video-text p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #000; /* solid black */
+}
+
+/* Video wrapper — holds the border */
+.video-box {
+  width: 100%;
+  aspect-ratio: 9 / 4;
+  overflow: hidden;
+  border-radius: 0;
+
+  /* sharp, stable border */
+  border: 0.5px solid #e5e5e5;
+}
+
+/* Video */
+.video-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  /* no border here */
+  border: none;
+
+  transition: transform 0.3s ease-out;
+}
+
+/* Hover – border stays perfect */
+.video-box:hover video {
+  transform: scale(1.01);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .tool-video {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 32px;
+  }
+}
+
+
+
 /* ================================
    FOOTER – DARK TEXT
 ================================ */
